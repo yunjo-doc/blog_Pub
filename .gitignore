@@ -13,3 +13,4 @@ pnpm-debug.log*
 
 # 개인 메모 (비밀번호 등)
 *.txt
+!app/robots.txt/
