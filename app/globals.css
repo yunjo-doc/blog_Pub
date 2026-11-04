@@ -77,7 +77,8 @@ img {
   font-size: 1.15rem;
   font-weight: 900;
   gap: 10px;
-  letter-spacing: 0.04em;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
 .wordmark-mark {

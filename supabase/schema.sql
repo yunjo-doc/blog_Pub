@@ -1,4 +1,4 @@
--- 기어로그 블로그 DB 스키마
+-- AI 생활연구소 블로그 DB 스키마
 -- Supabase 대시보드 > SQL Editor 에서 한 번 실행하세요.
 
 create extension if not exists pgcrypto;
@@ -13,7 +13,7 @@ create table if not exists public.posts (
   cover_image_url text,
   category text not null default '리뷰',
   tags text[] not null default '{}',
-  author text not null default '기어로그 에디터',
+  author text not null default 'AI 생활연구소 에디터',
   rating numeric(2, 1) check (rating is null or (rating >= 0 and rating <= 5)),
   verdict text,
   status text not null default 'published' check (status in ('draft', 'published', 'archived')),

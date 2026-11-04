@@ -1,4 +1,4 @@
-# 기어로그 (GEARLOG)
+# AI 생활연구소
 
 IT·전자기기 리뷰 블로그. Next.js 15 + Supabase.
 
