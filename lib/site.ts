@@ -19,7 +19,7 @@ export const SITE = {
   ],
   // Google Search Console / 네이버 서치어드바이저 HTML 태그 인증 코드 (content 값만)
   verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+    google: process.env.GOOGLE_SITE_VERIFICATION || "vUFebJYruh3TMh4XVUuSkiA1JGYSIa02a10L8TkbUaU",
     naver: process.env.NAVER_SITE_VERIFICATION || undefined,
   },
 };
