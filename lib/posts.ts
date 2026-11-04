@@ -215,6 +215,10 @@ export const getPost = cache(async (slug: string): Promise<Post | null> => {
   return samplePosts.find((post) => post.slug === slug) ?? null;
 });
 
+export function isSamplePost(post: Post) {
+  return post.id.startsWith("sample-");
+}
+
 export function formatDate(value: string | null) {
   if (!value) return "";
 

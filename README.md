@@ -25,7 +25,7 @@ Supabase Table Editor의 `posts` 테이블에 행을 추가합니다.
 | 컬럼 | 설명 |
 |---|---|
 | `slug` | 주소에 쓰일 영문 이름 (`/posts/slug`) |
-| `category` | `lib/site.ts`의 카테고리 중 하나 |
+| `category` | `lib/site.ts`의 카테고리 이름 중 하나 (스마트폰, 노트북, 태블릿, 오디오, AI·앱, 액세서리) |
 | `rating` | 0~5 평점 (리뷰가 아니면 비워두기) |
 | `verdict` | 한 줄 평 |
 | `featured` | 홈 상단 추천 글 |
@@ -41,3 +41,10 @@ Supabase Table Editor의 `posts` 테이블에 행을 추가합니다.
 ## 관리자
 
 `/admin/views` — 조회 통계 (아이디 `admin`, 비밀번호는 `ADMIN_PASSWORD`).
+
+## 검색 등록
+
+- 사이트맵: `/sitemap.xml`, RSS: `/rss.xml`
+- Google Search Console과 네이버 서치어드바이저에서 **HTML 태그** 방식으로 인증하고,
+  태그의 `content` 값을 Render 환경변수 `GOOGLE_SITE_VERIFICATION`, `NAVER_SITE_VERIFICATION`에 넣으면 됩니다.
+- 예시 글은 검색에서 제외(noindex)되고 사이트맵·RSS에도 들어가지 않습니다.

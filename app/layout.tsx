@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SITE } from "@/lib/site";
+import { RSS_ALTERNATE, SITE } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -22,6 +22,15 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE.name} | ${SITE.tagline}`,
     description: SITE.description,
+  },
+  alternates: {
+    types: RSS_ALTERNATE,
+  },
+  verification: {
+    google: SITE.verification.google,
+    other: SITE.verification.naver
+      ? { "naver-site-verification": SITE.verification.naver }
+      : undefined,
   },
   robots: {
     index: true,

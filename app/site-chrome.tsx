@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SITE } from "@/lib/site";
+import { SITE, categoryPath } from "@/lib/site";
 
 export function SiteHeader({ active }: { active?: string }) {
   return (
@@ -15,11 +15,11 @@ export function SiteHeader({ active }: { active?: string }) {
           </Link>
           {SITE.categories.map((category) => (
             <Link
-              aria-current={active === category ? "page" : undefined}
-              href={`/?category=${encodeURIComponent(category)}`}
-              key={category}
+              aria-current={active === category.name ? "page" : undefined}
+              href={categoryPath(category.name)}
+              key={category.slug}
             >
-              {category}
+              {category.name}
             </Link>
           ))}
         </nav>

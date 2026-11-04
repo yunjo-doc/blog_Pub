@@ -269,7 +269,7 @@ img {
   padding: 40px;
 }
 
-.feature-body h1 {
+.feature-body .feature-title {
   font-size: clamp(1.7rem, 3.2vw, 2.5rem);
   letter-spacing: -0.03em;
   line-height: 1.25;
@@ -280,7 +280,7 @@ img {
   font-size: 1.02rem;
 }
 
-.feature-card:hover h1 {
+.feature-card:hover .feature-title {
   color: var(--accent-ink);
 }
 
@@ -1053,4 +1053,16 @@ img {
     flex-direction: column;
     gap: 12px;
   }
+}
+
+.sr-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }

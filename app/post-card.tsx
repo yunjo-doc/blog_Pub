@@ -19,7 +19,7 @@ export function Cover({ post, priority }: { post: Post; priority?: boolean }) {
   if (image) {
     return (
       <img
-        alt=""
+        alt={post.title}
         className="cover"
         decoding="async"
         loading={priority ? "eager" : "lazy"}

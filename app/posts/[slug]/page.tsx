@@ -4,13 +4,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ReactNode } from "react";
 import {
+  isSamplePost,
   formatDate,
   getCoverImage,
   getDescription,
   getPost,
   getPosts,
 } from "@/lib/posts";
-import { SITE } from "@/lib/site";
+import { RSS_ALTERNATE, SITE, categoryPath } from "@/lib/site";
 import PageViewTracker from "../../page-view-tracker";
 import { PostCard, Rating } from "../../post-card";
 import { SiteFooter, SiteHeader } from "../../site-chrome";
@@ -133,8 +134,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
   return {
     title: post.title,
+    // 예시 글은 검색 결과에 나오지 않게
+    robots: isSamplePost(post) ? { index: false, follow: true } : undefined,
     description,
-    alternates: { canonical: url },
+    alternates: { canonical: url, types: RSS_ALTERNATE },
     openGraph: {
       type: "article",
       url,
@@ -171,6 +174,7 @@ export default async function PostPage({ params }: { params: Params }) {
     .concat(posts.filter((item) => item.id !== post.id && item.category !== post.category))
     .slice(0, 3);
   const image = getCoverImage(post);
+  const postUrl = `${SITE.url}/posts/${post.slug}`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -181,14 +185,33 @@ export default async function PostPage({ params }: { params: Params }) {
     dateModified: post.updated_at ?? post.published_at ?? undefined,
     author: { "@type": "Person", name: post.author },
     publisher: { "@type": "Organization", name: SITE.name },
-    mainEntityOfPage: `${SITE.url}/posts/${post.slug}`,
+    mainEntityOfPage: postUrl,
+    url: postUrl,
+    inLanguage: "ko-KR",
+    articleSection: post.category,
     keywords: post.tags.join(", ") || undefined,
+  };
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "홈", item: SITE.url },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: post.category,
+        item: `${SITE.url}${categoryPath(post.category)}`,
+      },
+      { "@type": "ListItem", position: 3, name: post.title, item: postUrl },
+    ],
   };
 
   return (
     <>
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([jsonLd, breadcrumbLd]).replace(/</g, "\\u003c"),
+        }}
         type="application/ld+json"
       />
       <PageViewTracker path={`/posts/${post.slug}`} slug={post.slug} title={post.title} />
@@ -197,7 +220,7 @@ export default async function PostPage({ params }: { params: Params }) {
       <main className="page">
         <article className="article">
           <header className="article-header">
-            <Link className="chip" href={`/?category=${encodeURIComponent(post.category)}`}>
+            <Link className="chip" href={categoryPath(post.category)}>
               {post.category}
             </Link>
             <h1>{post.title}</h1>
